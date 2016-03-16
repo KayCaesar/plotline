@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
 
   # Files & images
   s.add_dependency "mini_magick"
-  s.add_dependency "thumbor_rails"
 
   # Markdown
   s.add_dependency "rdiscount"
