@@ -9,7 +9,7 @@ module Plotline
       end
 
       module ClassMethods
-        def self.tagged_with(tag)
+        def tagged_with(tag)
           where('tags @> ?', "{#{tag}}")
         end
       end
