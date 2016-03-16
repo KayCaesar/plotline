@@ -1,0 +1,22 @@
+<% title "Image: #{@image.image}" %>
+
+<% content_for :heading do %>
+  <h1>Image</h1>
+<% end %>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <td>Filename:</td>
+      <td><%= @image.image %></td>
+      <td rowspan="10"><%= image_tag '/media/' + @image.image, width: 300 %></td>
+    </tr>
+
+    <% @image.exif.each do |key, value| %>
+      <tr>
+        <td><%= key.to_s.titleize %>:</td>
+        <td><%= value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

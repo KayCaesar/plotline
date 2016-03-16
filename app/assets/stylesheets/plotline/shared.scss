@@ -1,0 +1,56 @@
+/* =Global styles
+======================================================================= */
+
+::-moz-selection {
+  background-color: $blue;
+  color: #fff;
+}
+
+::selection {
+  background-color: $blue;
+  color: #fff;
+}
+
+body {
+  line-height: $base-line-height;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+}
+
+.wrapper.content {
+  min-height: 500px;
+  padding-bottom: 100px;
+}
+
+.wrapper-flash {
+  position: fixed;
+  top: 60px;
+  right: 50px;
+  width: 500px;
+}
+
+.main-content {
+  padding: 2rem;
+}
+
+#head {
+  margin-bottom: 2rem;
+  @include clearfix;
+  border-bottom: 1px $base-border-color solid;
+  padding-bottom: 1em;
+
+  h1 {
+    float: left;
+  }
+
+  a.btn {
+    float: right;
+  }
+}
+
+body.plain {
+  form {
+    width: 30em;
+    margin: 100px auto;
+  }
+}

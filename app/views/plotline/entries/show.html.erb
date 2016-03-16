@@ -1,0 +1,31 @@
+<% title @entry.title %>
+
+<% content_for :heading do %>
+  <h1><%= @entry.title %></h1>
+<% end %>
+
+<% present(@entry, Plotline::EntryPresenter) do |entry| %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Slug:</td>
+        <td><%= @entry.slug %></td>
+      </tr>
+      <tr>
+        <td>Tags:</td>
+        <td><%= @entry.tags.join(', ') %></td>
+      </tr>
+
+      <% @entry.class.content_attributes.each do |attr_name, attr_type| %>
+        <tr>
+          <td><%= attr_name.to_s.titleize %>:</td>
+          <td><%= @entry.send(attr_name.to_sym) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div>
+    <%= entry.body_markdown %>
+  </div>
+<% end %>

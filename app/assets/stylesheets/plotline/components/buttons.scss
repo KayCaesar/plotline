@@ -1,0 +1,56 @@
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  position: relative;
+
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 21px;
+
+  @include clear-user-select;
+}
+
+.btn-primary.btn {
+  //background-image: linear-gradient(-1deg, #3494F7 0%, #40ABF9 100%);
+  background-color: #328ad6;
+  box-shadow: inset 0 0 0 1px #328ad6;
+}
+
+.btn:hover, .btn:focus { text-decoration: none }
+.btn:hover, .btn:focus { color:#fff }
+
+.btn-primary.btn:hover, .btn-primary.btn:focus {
+  background-color: li  ghten(#328ad6, 5);
+  color:#fff
+}
+
+.btn-primary.btn:active {
+  background-color: lighten(#3494F7, 8);
+}
+
+.btn.full-width {
+  width: 100%;
+}
+
+.btn.btn-secondary {
+  border: none;
+  background: #34C849;
+  color: #fff;
+}
+
+.btn.btn-secondary:hover {
+  background: darken(#34C849, 5);
+}
+
+.btn.btn-secondary:active {
+  background: darken(#34C849, 10);
+}

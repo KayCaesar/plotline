@@ -1,0 +1,56 @@
+@import 'components/variables';
+
+$em-base: 14px;
+
+// Colors
+$blue: #328ad6;
+$dark-gray: #333;
+$medium-gray: #999;
+$light-gray: #DDD;
+$light-red: #FBE3E4;
+$light-yellow: #FFF6BF;
+$light-green: #8aba56;
+$yellow: #FDBD41;
+$red: #FC625D;
+$green: #34C849;
+$blue-gray: #F2F5F8;
+
+$base-background-color: #fff;
+$base-font-color: #262626;
+$base-font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$form-font-family: "Fira Mono", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$muted-text-color: #82888a;
+
+$base-font-size: $em-base;
+$base-line-height: 1.43;
+
+$base-border-color: #d4d4d4;
+
+// Links
+$base-link-color: $blue;
+$hover-link-color: darken($base-link-color, 20);
+
+// Navigation
+$nav-background-color: #fafafa;
+$nav-link-color: #262626;
+$nav-link-color-active: $blue;
+//$nav-link-color-active: #5b7a59;
+$nav-active-highlight-color: #cecfd1;
+
+$alert-color: $light-yellow;
+$error-color: $light-red;
+$notice-color: lighten(#12A5F4, 40);
+$success-color: $light-green;
+
+$nav-height: 55px;
+$form-title-height: 70px;
+$bottom-toolbar-height: 40px;
+
+@import "bourbon";
+@import "components/base";
+
+// Application-specific
+@import "shared";
+@import "navigation";
+@import "photosets";
