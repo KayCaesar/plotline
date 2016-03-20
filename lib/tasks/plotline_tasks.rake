@@ -12,13 +12,8 @@ task :import_entries => :environment do
     directories = Dir.entries(path).select { |file| File.directory?(File.join(path, file)) }
     directories = directories.reject { |d| excluded_directories.include?(d) }
 
-    puts "Found:"
-    p directories
-
     directories.each do |dir|
-      Dir["#{path}/#{dir}/**/*.md"].each do |filename|
-        importer.import_file(filename)
-      end
+      Dir["#{path}/#{dir}/**/*.md"].each { |filename| importer.import_file(filename) }
     end
   end
 end
@@ -28,6 +23,11 @@ task :import_images => :environment do
   target = ENV.fetch('APP_DIR')
   importer = Plotline::Importer.new(path, target)
 
-  puts "Importing images..."
+  puts "~" * 80
+  print "\n\e[34mImporting images... "
+
   importer.import_images
+
+  puts "done.\e[0m\n\n"
+  puts "~" * 80
 end

@@ -5,7 +5,7 @@ module Plotline
     private
 
     def set_metadata
-      filename = './public/media/' + image
+      filename = File.join('./public', image)
       File.open(filename) do |file|
         img = FastImage.new(file)
 

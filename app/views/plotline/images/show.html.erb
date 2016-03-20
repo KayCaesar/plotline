@@ -9,7 +9,7 @@
     <tr>
       <td>Filename:</td>
       <td><%= @image.image %></td>
-      <td rowspan="10"><%= image_tag '/media/' + @image.image, width: 300 %></td>
+      <td rowspan="10"><%= image_tag @image.image, width: 300 %></td>
     </tr>
 
     <% @image.exif.each do |key, value| %>

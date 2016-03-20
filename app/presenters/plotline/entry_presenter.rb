@@ -42,8 +42,7 @@ module Plotline
 
     def images_hash
       @images_hash ||= Plotline::Image.all.each_with_object({}) do |img, hash|
-        Rails.logger.warn(img.image)
-        hash['/media/' + img.image] = img
+        hash[img.image] = img
       end
     end
   end
