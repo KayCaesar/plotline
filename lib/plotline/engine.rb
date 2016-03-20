@@ -4,7 +4,8 @@ module Plotline
 
     require 'jquery-rails'
     require 'rdiscount'
-    require 'mini_magick'
+    require 'fastimage'
+    require 'exiftool'
 
     require 'bourbon'
     require 'autoprefixer-rails'

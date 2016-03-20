@@ -26,7 +26,8 @@ Gem::Specification.new do |s|
   s.add_dependency "bourbon"
 
   # Files & images
-  s.add_dependency "mini_magick"
+  s.add_dependency "fastimage"
+  s.add_dependency "exiftool"
 
   # Markdown
   s.add_dependency "rdiscount"

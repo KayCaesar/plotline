@@ -5,16 +5,18 @@ module Plotline
     private
 
     def set_metadata
-      File.open('./public/media/' + image) do |file|
-        img = ::MiniMagick::Image.open(file)
+      filename = './public/media/' + image
+      File.open(filename) do |file|
+        img = FastImage.new(file)
 
-        self.width, self.height = img[:dimensions]
+        self.width, self.height = img.size
         self.ratio = self.width.to_f / self.height.to_f
-        self.exif = img.exif
 
-        self.content_type = img.mime_type
+        self.content_type = img.type
         self.file_size    = file.size
       end
+
+      self.exif = Exiftool.new(filename).to_hash
     end
   end
 end
