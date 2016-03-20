@@ -19,7 +19,7 @@ module Plotline
     private
 
     def set_entry
-      @entry = Entry.find_by_token!(params[:id])
+      @entry = Entry.find(params[:id])
     end
 
     def content_class

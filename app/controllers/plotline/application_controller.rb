@@ -24,7 +24,7 @@ module Plotline
     helper_method :content_entries_path
 
     def content_entry_path(entry)
-      entry_path(id: entry.token, content_class: content_class.tableize)
+      entry_path(id: entry.id, content_class: content_class.tableize)
     end
     helper_method :content_entry_path
 
@@ -34,7 +34,7 @@ module Plotline
     helper_method :new_content_entry_path
 
     def edit_content_entry_path(entry)
-      edit_entry_path(id: entry.token, content_class: content_class.tableize)
+      edit_entry_path(id: entry.id, content_class: content_class.tableize)
     end
     helper_method :edit_content_entry_path
   end
