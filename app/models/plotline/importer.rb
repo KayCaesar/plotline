@@ -21,6 +21,15 @@ module Plotline
         date = nil
       end
 
+      if !File.exists?(filename)
+        entry = Plotline::Entry.find_by(slug: slug)
+        if entry
+          puts "  File removed, deleting entry ##{entry.id}"
+          entry.destroy
+        end
+        return
+      end
+
       contents = File.read(filename)
       contents = contents.gsub('../../media', '/media') # replace relative img paths
       checksum = Digest::MD5.hexdigest(contents)
