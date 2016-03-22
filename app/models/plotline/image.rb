@@ -1,6 +1,7 @@
 module Plotline
   class Image < ActiveRecord::Base
     before_save :set_metadata
+    after_destroy :remove_image_file
 
     private
 
@@ -17,6 +18,10 @@ module Plotline
       end
 
       self.exif = Exiftool.new(filename).to_hash
+    end
+
+    def remove_image_file
+      File.delete(File.join('./public', image))
     end
   end
 end
