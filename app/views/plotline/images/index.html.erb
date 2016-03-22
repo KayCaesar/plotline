@@ -20,7 +20,7 @@
       <tr>
         <td>
           <%= link_to plotline.image_path(image) do %>
-            <%= image_tag '/media/' + image.image, width: 100 %>
+            <%= image_tag image.image, width: 100 %>
           <% end %>
         </td>
         <td><%= image.image %></td>
