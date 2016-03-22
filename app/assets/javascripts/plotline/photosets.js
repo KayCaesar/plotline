@@ -5,21 +5,25 @@ var Plotline = Plotline || {};
 // Based heavily on/stolen from: https://medium.com/coding-design/responsive-photosets-7742e6f93d9e
 Plotline.Photosets = {
   initialize: function() {
-    $(window).on('resize', this.debounce(this.align.bind(this), 100));
-    $(window).on('pageUpdated', this.align.bind(this));
-    $(document).ready(function() {
-      $(window).resize();
+    window.addEventListener('resize', Plotline.Utils.debounce(this.align.bind(this), 100));
+
+    Plotline.Utils.ready(function() {
+      // trigger 'resize' event on window
+      var event = document.createEvent('HTMLEvents');
+      event.initEvent('resize', true, false);
+      window.dispatchEvent(event);
     });
   },
 
   align: function(event) {
-    $('.photoset-row').each(function () {
-      var $pi    = $(this).find('.photoset-item'),
-          cWidth = $(this).parent('.photoset').width();
+    var rows = document.querySelectorAll('.photoset-row');
+    Array.prototype.forEach.call(rows, function(el, i){
+      var $pi    = el.querySelectorAll('.photoset-item'),
+          cWidth = parseInt(window.getComputedStyle(el.parentNode).width);
 
-      var ratios = $pi.map(function () {
-        return $(this).find('img').data('ratio');
-      }).get();
+      var ratios = Array.prototype.map.call($pi, function(el, index) {
+        return el.querySelector('img').getAttribute('data-ratio');
+      });
 
       var sumRatios = 0, sumMargins = 0,
           minRatio  = Math.min.apply(Math, ratios);
@@ -28,29 +32,18 @@ Plotline.Photosets = {
         sumRatios += ratios[i] / minRatio;
       };
 
-      $pi.each(function() {
-        sumMargins += parseInt($(this).css('margin-left')) + parseInt($(this).css('margin-right'));
+      Array.prototype.forEach.call($pi, function(el) {
+        sumMargins += parseInt(getComputedStyle(el)['margin-left']) + parseInt(getComputedStyle(el)['margin-right']);
       });
 
-      $pi.each(function (i) {
+      Array.prototype.forEach.call($pi, function(el, i) {
         var minWidth = (cWidth - sumMargins) / sumRatios;
-        $(this).find('img')
-          .width(Math.ceil(minWidth / minRatio) * ratios[i])
-          .height(Math.ceil(minWidth / minRatio));
+        var img = el.querySelector('img');
+
+        img.style.width  = (Math.ceil(minWidth / minRatio) * ratios[i]) + 'px';
+        img.style.height = (Math.ceil(minWidth / minRatio)) + 'px';
       });
     });
-  },
-
-  // Source: https://remysharp.com/2010/07/21/throttling-function-calls
-  debounce: function(fn, delay) {
-    var timer = null;
-    return function () {
-      var context = this, args = arguments;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        fn.apply(context, args);
-      }, delay);
-    };
   }
 };
 
