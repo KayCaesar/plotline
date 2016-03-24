@@ -3,10 +3,17 @@ module Plotline
     before_save :set_metadata
     after_destroy :remove_image_file
 
+    def filename
+      File.join('./public', image)
+    end
+
+    def remove_image_file
+      File.delete(filename)
+    end
+
     private
 
     def set_metadata
-      filename = File.join('./public', image)
       File.open(filename) do |file|
         img = FastImage.new(file)
 
@@ -18,10 +25,6 @@ module Plotline
       end
 
       self.exif = Exiftool.new(filename).to_hash
-    end
-
-    def remove_image_file
-      File.delete(File.join('./public', image))
     end
   end
 end
