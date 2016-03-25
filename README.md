@@ -1,12 +1,55 @@
 # Plotline
 
-Plotline is a flexible CMS engine for Rails apps, based on Markdown and Postgres. It allows you to store content in markdown files on Dropbox (for seamless, instant sync), separating content from your application code.
+Plotline is a flexible CMS engine for Rails apps, based on Postgres and Markdown. It provides the essentials you need to create any content website:
 
-More soon.
+* Data model for storing your content
+* Full-text search engine (Postgres-based)
+* Markdown parser with custom features (photosets, custom attributes)
+* Tags
+* Images stored with metadata (exif, width, height)
+* Parent-child associations for content entries
+
+It also provides a basic admin panel. However, it doesn't include any forms for creating and editing data.
+
+The idea was to allow for storing content in plain markdown files on Dropbox (for seamless, instant sync), separating content from your application code. You can write your blog posts in your favorite editor, put the file in the Dropbox folder along with images and Plotline will automatically pick it up. Any changes you make to your Dropbox folder will be synced within seconds.
 
 ## Getting Started
 
 Best way to get started is to take a look at the [demo blog app](https://github.com/pch/plotline-demo-blog). Clone the repo, run the app and make it your own.
+
+## Creating Custom Content Classes
+
+Plotline provides the `Plotline::Entry` class, which serves as the base for your custom content types:
+
+```ruby
+class BlogPost < Plotline::Entry
+  # All classes have "title" and "body" columns, everything else is a content_attr:
+  content_attr :subtitle
+  content_attr :cover_image
+end
+```
+
+Custom `content_attrs` are stored as serialized JSON in the database. There's no need to run any additional migrations, thanks to [Single Table Inheritance](http://api.rubyonrails.org/classes/ActiveRecord/Inheritance.html) (everything is stored in a single database table).
+
+## Content Directory Structure
+
+Example directory with content:
+
+```
+media/
+  2016/
+    hello-world/
+      hello.jpg
+
+drafts/
+  researched-blog-post.md
+
+blog-posts/
+  2016/
+    2016-03-25_hello-world.md
+```
+
+The only required directories are `media` and `drafts`. Plotline doesn't enforce structure within directories, though, so you can arrange files any way you like.
 
 ## Custom Markdown
 
@@ -34,7 +77,7 @@ For example:
 Plotline provides an additional, custom Markdown syntax to allow you to create responsive image galleries. Text enclosed in `--- ... ---` will be parsed as a photoset block:
 
 ```markdown
-Here are the photos from my trip:
+Here are the photos from my last trip:
 
 ---
 ![](../../media/posts/hello/photo1.jpg)
@@ -47,7 +90,7 @@ Here are the photos from my trip:
 ![](../../media/posts/hello/photo5.jpg)
 ---
 
-Rest of your text goes here.
+Beautiful, huh?
 ```
 
 From the example above, Plotline will create a photoset with 3 rows: 2, 1 and 3 images in each row respectively. Empty line is treated as a new row.
@@ -58,6 +101,7 @@ From the example above, Plotline will create a photoset with 3 rows: 2, 1 and 3 
 ---
 title: "Hello World"
 type: post
+cover_image: '../../media/hello-world.jpg'
 tags:
   - intro
   - example
@@ -77,9 +121,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ![](../../media/posts/hello/photo5.jpg)
 ---
 
-And this is it!
-
+The End.
 ```
+
+## Known Issues / Limitations
+
+* Image markdown tags accept only paths/urls to files, the `![Caption][image-label]` syntax is not supported
+* Figure tags are wrappend in `<p>` tags by RDiscount, which may not always be acceptable
 
 ## License
 
