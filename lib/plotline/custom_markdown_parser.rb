@@ -12,8 +12,8 @@ module Plotline
     # ![alt text](/path/to/image.jpg)
     IMAGE_PATTERN = /\!\[([^\]]*)\]\(([^)]+)\)(\{([^{]+)\})?/
 
-    PHOTOSET_HTML     = '<div class="photoset">%{rows}</div>'
-    PHOTOSET_ROW_HTML = '<div class="photoset-row">%{items}</div>'
+    PHOTOSET_HTML     = "<div class=\"photoset\">%{rows}</div>\n\n"
+    PHOTOSET_ROW_HTML = "<div class=\"photoset-row\">%{items}</div>"
 
     def parse(text)
       text = parse_photosets(text)
