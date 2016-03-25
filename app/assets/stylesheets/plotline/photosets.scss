@@ -59,4 +59,21 @@
     display: block;
     max-width: 100%;
   }
+
+  @media screen and (min-width: 480px) and (max-width: 768px) {
+    figcaption {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .photoset-row {
+      margin-bottom: 1px;
+    }
+
+    .photoset-item {
+      margin-right: 1px;
+      margin-left: 0px;
+    }
+  }
 }
