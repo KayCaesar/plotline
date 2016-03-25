@@ -14,3 +14,4 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem 'rails-controller-testing'
+gem 'mocha'

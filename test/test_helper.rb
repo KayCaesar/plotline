@@ -5,6 +5,7 @@ require File.expand_path("../../test/dummy/config/environment.rb",  __FILE__)
 ActiveRecord::Migrator.migrations_paths = [File.expand_path("../../test/dummy/db/migrate", __FILE__)]
 ActiveRecord::Migrator.migrations_paths << File.expand_path('../../db/migrate', __FILE__)
 require "rails/test_help"
+require "mocha/mini_test"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
@@ -24,16 +25,6 @@ class BlogPost < Plotline::Entry
   content_attr :body
 end
 
-class PlotlineUser; end
-
 Plotline.configure do |config|
   config.content_classes = %w(BlogPost)
-
-  config.current_user_lookup do
-    session[:logged_in].present? ? PlotlineUser.new : nil
-  end
-
-  config.sign_in_url do
-    '/login'
-  end
 end

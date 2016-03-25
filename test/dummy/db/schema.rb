@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911135536) do
+ActiveRecord::Schema.define(version: 20160224161843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,17 +20,21 @@ ActiveRecord::Schema.define(version: 20150911135536) do
     t.string   "type"
     t.string   "title"
     t.string   "slug"
+    t.text     "body"
     t.json     "payload"
-    t.integer  "user_id"
-    t.string   "author_name"
     t.datetime "published_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "status",       default: 0
+    t.text     "tags",         default: [],              array: true
+    t.integer  "parent_id"
+    t.string   "checksum"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["parent_id"], name: "index_plotline_entries_on_parent_id", using: :btree
+    t.index ["slug"], name: "index_plotline_entries_on_slug", using: :btree
+    t.index ["status"], name: "index_plotline_entries_on_status", using: :btree
+    t.index ["tags"], name: "index_plotline_entries_on_tags", using: :gin
+    t.index ["type"], name: "index_plotline_entries_on_type", using: :btree
   end
-
-  add_index "plotline_entries", ["slug"], name: "index_plotline_entries_on_slug", using: :btree
-  add_index "plotline_entries", ["type"], name: "index_plotline_entries_on_type", using: :btree
-  add_index "plotline_entries", ["user_id"], name: "index_plotline_entries_on_user_id", using: :btree
 
   create_table "plotline_entry_search_data", force: :cascade do |t|
     t.integer  "entry_id"
@@ -39,9 +43,29 @@ ActiveRecord::Schema.define(version: 20150911135536) do
     t.text     "raw_data"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["entry_id"], name: "index_plotline_entry_search_data_on_entry_id", using: :btree
+    t.index ["search_data"], name: "idx_search_data", using: :gin
   end
 
-  add_index "plotline_entry_search_data", ["entry_id"], name: "index_plotline_entry_search_data_on_entry_id", using: :btree
-  add_index "plotline_entry_search_data", ["search_data"], name: "idx_search_data", using: :gin
+  create_table "plotline_images", force: :cascade do |t|
+    t.string   "image"
+    t.integer  "width"
+    t.integer  "height"
+    t.float    "ratio"
+    t.integer  "file_size"
+    t.string   "content_type"
+    t.json     "exif"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "plotline_users", force: :cascade do |t|
+    t.string   "email"
+    t.string   "name"
+    t.string   "password_digest"
+    t.string   "auth_token"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end

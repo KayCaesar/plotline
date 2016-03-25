@@ -5,9 +5,3 @@ one:
   name: MyString
   password_digest: MyString
   auth_token: MyString
-
-two:
-  email: MyString
-  name: MyString
-  password_digest: MyString
-  auth_token: MyString
