@@ -2,7 +2,7 @@ desc "Import entries"
 task :import_entries => :environment do
   path   = ENV.fetch('CONTENT_SOURCE_DIR')
   target = ENV.fetch('APP_DIR')
-  excluded_directories = ['.', '..', 'media', 'drafts']
+  excluded_directories = ['.', '..', 'media']
 
   importer = Plotline::Importer.new(path, target)
 
