@@ -6,7 +6,8 @@ module Plotline
     def initialize(source_dir, target_dir)
       @source_dir = source_dir
       @target_dir = target_dir
-      @uploads_dir = target_dir + '/public'
+      @public_dir = target_dir + '/public'
+      @uploads_dir = target_dir + '/public/media'
     end
 
     def import_file(filename)
@@ -54,7 +55,7 @@ module Plotline
 
     def import_images
       Dir[@uploads_dir + '/**/*.{jpg,jpeg,png,gif,bmp,tiff}'].each do |img|
-        filename = img.gsub(@uploads_dir, '')
+        filename = img.gsub(@public_dir, '')
 
         image = Plotline::Image.find_or_initialize_by(image: filename)
         next if image.persisted? && File.size(img) == image.file_size
