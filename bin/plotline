@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+require 'commander/import'
+require 'listen'
+require File.join(Dir.pwd, 'config', 'environment') # load the Rails app
+
+program :name, 'Plotline'
+program :version, Plotline::VERSION
+program :description, 'Simple CMS based on Ruby, Markdown and Postgres'
+
+command :sync do |c|
+  c.syntax = 'plotline sync [options]'
+  c.description = 'Sync content files from --path to the database and --media-target directories'
+  c.option '--source-path STRING', String, 'Directory with content files'
+  c.option '--target STRING', String, 'Rails application directory (defaults to pwd)'
+  c.action do |args, options|
+    options.default target: Dir.pwd
+
+    importer = Plotline::Import::Runner.new(options.source_path, options.target)
+    importer.import_all!
+
+    listener = Listen.to(options.source_path) do |modified, added, removed|
+      importer.process_files(removed | modified | added)
+    end
+
+    listener.start
+    sleep
+  end
+end

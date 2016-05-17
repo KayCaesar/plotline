@@ -4,12 +4,11 @@ module Plotline
 
     def initialize
       @content_classes = [].freeze
-      @photoset_item_html = Proc.new { raise "No photoset item html provided!" }
     end
 
-    def photoset_item_html(&block)
-      @photoset_item_html = block if block
-      @photoset_item_html
+    def logger(logger = nil)
+      @logger ||= logger || Logger.new(STDOUT)
+      @logger
     end
   end
 
