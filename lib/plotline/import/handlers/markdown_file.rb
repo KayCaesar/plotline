@@ -4,7 +4,7 @@ module Plotline
       class MarkdownFile < Base
         FILENAME_SPLIT_PATTERN = /^(\d{4}-\d{2}-\d{2})-(.*)/
         FRONT_MATTER_PATTERN = /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
-        MARKDOWN_EXTENSIONS = %(md markdown).freeze
+        MARKDOWN_EXTENSIONS = %w(md markdown).freeze
 
         def supported_file?(filename)
           MARKDOWN_EXTENSIONS.include?(File.extname(filename).gsub('.', ''))
@@ -106,13 +106,10 @@ module Plotline
         end
 
         def dump_log(entry, meta)
-          log "\e[32mMetadata:\e[0m"
+          log "\e[32m#{entry.class.name}:\e[0m"
           meta.each do |k, v|
             log "  \e[32m#{k}:\e[0m #{v}"
           end
-
-          log "\e[32m#{entry.class.name}:\e[0m"
-          log "  \e[32mtitle:\e[0m #{entry.title}"
           log "  \e[32mslug:\e[0m #{entry.slug}"
           log "  \e[32mdraft:\e[0m #{entry.draft?}"
           log "  \e[32mpublished_at:\e[0m #{entry.published_at}"

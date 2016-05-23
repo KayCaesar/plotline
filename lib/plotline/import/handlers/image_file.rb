@@ -2,7 +2,7 @@ module Plotline
   module Import
     module Handlers
       class ImageFile < Base
-        IMAGE_EXTENSIONS = %(jpg jpeg png gif bmp tiff).freeze
+        IMAGE_EXTENSIONS = %w(jpg jpeg png gif bmp tiff).freeze
 
         def supported_file?(filename)
           IMAGE_EXTENSIONS.include?(File.extname(filename).gsub('.', ''))
