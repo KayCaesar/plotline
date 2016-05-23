@@ -126,8 +126,9 @@ The End.
 
 ## Known Issues / Limitations
 
-* Image markdown tags accept only paths/urls to files, the `![Caption][image-label]` syntax is not supported
+* Image Markdown tags accept only paths/urls to files, the `![Caption][image-label]` syntax is not supported
 * Figure tags are wrappend in `<p>` tags by RDiscount, which may not always be acceptable
+* External images (referenced by URLS) won't store Exif data in the database.  It should be fairly easy to fix by downloading those images to a temp file and passing them to Exiftool. However, I don't use external images, so it wasn't a priority to implement. I will happily accept a PR, though.
 
 ## License
 

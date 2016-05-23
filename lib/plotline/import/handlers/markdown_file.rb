@@ -33,6 +33,7 @@ module Plotline
           klass = meta.delete('type').classify.constantize
           entry = klass.find_or_initialize_by(slug: slug)
 
+          process_image_urls(full_contents)
           update_entry(entry, meta, date, contents, full_contents)
         end
 
@@ -71,9 +72,15 @@ module Plotline
         def convert_relative_image_paths(filename, contents)
           entry_file_dir = File.dirname(filename)
 
-          contents.gsub(/(\.\.\/.+\.(jpg|jpeg|gif|png|bmp))/) do
+          contents.gsub(/(\.\.\/.+\.(?:jpe?g|gif|png))/) do
             absolute_path = File.expand_path(File.join(entry_file_dir, $1))
             '/uploads' + absolute_path.gsub(@runner.source_dir, '')
+          end
+        end
+
+        def process_image_urls(contents)
+          URI.extract(contents).select{ |url| url[/\.(?:jpe?g|png|gif)\b/i] }.each do |url|
+            Plotline::Image.find_or_create_by(image: url)
           end
         end
 
