@@ -1,11 +1,20 @@
 module Plotline
   module Import
-    class UnsupportedFileType; end
+    class UnsupportedFileType < StandardError; end
 
     class Runner
       HANDLERS = [
         Plotline::Import::Handlers::MarkdownFile,
         Plotline::Import::Handlers::ImageFile
+      ].freeze
+
+      # So far this includes only the annoying Icon\r file on OSX, which
+      # is hidden, but it's not a dotfile, so Dir lookup doesn't ignore it...
+      #
+      # This file appears when a directory has a custom icon (e.g shared
+      # dropbox folder).
+      IGNORED_FILES = [
+        "Icon\r"
       ].freeze
 
       attr_reader :source_dir, :target_dir, :public_dir, :uploads_dir
@@ -26,6 +35,7 @@ module Plotline
       def process_files(files)
         files.each do |filename|
           next if FileTest.directory?(filename)
+          next if IGNORED_FILES.include?(File.basename(filename))
 
           handler_found = false
           @handlers.each do |handler|
@@ -35,7 +45,7 @@ module Plotline
             end
           end
 
-          raise UnsupportedFileType unless handler_found
+          raise UnsupportedFileType.new(filename) unless handler_found
         end
       end
     end
