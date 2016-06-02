@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Plotline::VERSION
   s.authors     = ["Piotr Chmolowski"]
   s.email       = ["piotr@chmolowski.pl"]
-  s.homepage    = "http://pchm.co/plotline"
+  s.homepage    = "https://github.com/pch/plotline"
   s.summary     = "Markdown & Postres-based CMS engine for Rails."
   s.description = "Markdown & Postres-based CMS engine for Rails."
   s.license     = "MIT"
