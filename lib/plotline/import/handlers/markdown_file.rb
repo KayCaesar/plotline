@@ -102,7 +102,11 @@ module Plotline
 
           dump_log(entry, meta)
 
-          entry.save!
+          unless entry.save
+            dump_errors(entry)
+          end
+        rescue ActiveModel::UnknownAttributeError => e
+          log "\e[31mERROR: #{e.message}\e[0m"
         end
 
         def dump_log(entry, meta)
@@ -114,6 +118,13 @@ module Plotline
           log "  \e[32mdraft:\e[0m #{entry.draft?}"
           log "  \e[32mpublished_at:\e[0m #{entry.published_at}"
           log "  \e[32mbody:\e[0m #{entry.body[0..100].gsub("\n", " ")}..."
+        end
+
+        def dump_errors(entry)
+          log "\e[31mERROR: #{entry.class.name} could not be saved!\e[0m"
+          entry.errors.each do |attr, error|
+            log "  \e[31m#{attr}:\e[0m #{error}"
+          end
         end
       end
     end
