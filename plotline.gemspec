@@ -14,6 +14,8 @@ Gem::Specification.new do |s|
   s.description = "Markdown & Postres-based CMS engine for Rails."
   s.license     = "MIT"
 
+  s.required_ruby_version = ">= 2.3.0"
+
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
