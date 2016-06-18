@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'commander/import'
 require 'listen'
+require 'plotline/version'
 require File.join(Dir.pwd, 'config', 'environment') # load the Rails app
 
 program :name, 'Plotline'
