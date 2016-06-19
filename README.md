@@ -39,6 +39,13 @@ Add Plotline to the Gemfile:
 gem 'plotline'
 ```
 
+Run `bundle install` and set up database migrations:
+
+```
+rake plotline:install:migrations
+rake db:migrate
+```
+
 ## Content Classes
 
 In order to make use of the CMS engine, you'll need to create a content class
