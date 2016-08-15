@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.executables = ["plotline"]
 
-  s.add_dependency "rails", "~> 5.0.0.rc1"
+  s.add_dependency "rails", "~> 5.0.0.1"
   s.add_dependency "bcrypt", "~> 3.1.7"
   s.add_dependency "sass-rails", "~> 5.0"
 
