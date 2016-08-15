@@ -5,7 +5,8 @@ module Plotline
     class Runner
       HANDLERS = [
         Plotline::Import::Handlers::MarkdownFile,
-        Plotline::Import::Handlers::ImageFile
+        Plotline::Import::Handlers::ImageFile,
+        Plotline::Import::Handlers::VideoFile
       ].freeze
 
       # So far this includes only the annoying Icon\r file on OSX, which
