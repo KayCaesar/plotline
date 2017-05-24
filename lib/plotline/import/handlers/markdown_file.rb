@@ -59,7 +59,7 @@ module Plotline
         def extract_metadata_from_contents(contents)
           if result = contents.match(FRONT_MATTER_PATTERN)
             contents = contents[(result[0].length)...(contents.length)]
-            meta = YAML.safe_load(result[0])
+            meta = YAML.safe_load(result[0], [Date])
           else
             meta = {}
           end
