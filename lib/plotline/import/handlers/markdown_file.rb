@@ -72,7 +72,7 @@ module Plotline
         def convert_relative_image_paths(filename, contents)
           entry_file_dir = File.dirname(filename)
 
-          contents.gsub(/(\.\.\/.+\.(?:jpe?g|gif|png|mp4|mov|wmv|avi))/) do
+          contents.gsub(/(\.\.?\/.+\.(?:jpe?g|gif|png|mp4|mov|wmv|avi))/) do
             absolute_path = File.expand_path(File.join(entry_file_dir, $1))
             '/uploads' + absolute_path.gsub(@runner.source_dir, '')
           end
